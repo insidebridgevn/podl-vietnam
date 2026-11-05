@@ -219,8 +219,13 @@ main{padding-block:8px 80px}
 .drawer{position:fixed;top:0;right:0;bottom:0;width:min(600px,100%);background:var(--surface);z-index:41;transform:translateX(100%);transition:transform .3s ease;overflow-y:auto;padding:calc(env(safe-area-inset-top,0px) + 18px) max(24px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 36px) 24px;display:flex;flex-direction:column;gap:22px}
 .drawer.on{transform:none}
 .drawer>*{flex-shrink:0}
-.drawer .stage{width:100%;min-height:260px}
-.drawer .stage img{position:absolute;inset:0;padding:8%}
+.dhead{display:flex;gap:16px;align-items:flex-start}
+.dtext{flex:1;min-width:0}
+.dthumb{position:relative;flex:none;width:120px;height:120px;border-radius:16px;background:var(--t);overflow:hidden;display:grid;place-items:center}
+.dthumb.photo{background:var(--photo-bg)}
+.dthumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:8%;mix-blend-mode:multiply}
+.dthumb .soon{display:none}
+@media (max-width:420px){.dthumb{width:88px;height:88px}}
 .dtop{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .close{font:inherit;font-weight:600;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 16px;cursor:pointer}
 .drawer .stage{aspect-ratio:16/11}
@@ -694,8 +699,7 @@ function openDrawer(sku){const p=PRODUCTS.find(x=>x.sku===sku);if(!p)return;
   const tagHtml=tags&&!isPending(tags)?`<div class="dsec"><h4>Hashtag / Positioning</h4><div class="tags">${(tags.match(/#[^\s#]+/g)||[tags]).map(x=>`<span>${esc(x)}</span>`).join("")}</div></div>`:sec("Hashtag / Positioning",tags);
   drawer.setAttribute("style",tone(p.tone));
   drawer.innerHTML=`<div class="dtop"><span class="eyebrow" style="color:var(--i)">${esc(p.sku)} · ${esc(p.isNew?"Pore-Obsession":"Dòng hiện có")}</span><button class="close" type="button" id="closeBtn">Đóng</button></div>
-   <div class="stage${hasPhoto(p)?" photo":""}">${art(p)}</div>
-   <div><h2>${esc(p.name)}</h2><p class="krname kr">${esc(field(p,/^Tên tiếng Hàn/i)||p.kr)}</p>${p.vn?`<p class="src" style="margin-top:6px">Tên bán tại VN: <b style="color:var(--ink)">${esc(p.vn)}</b></p>`:""}<p class="src" style="margin-top:6px">${esc(p.role||p.step)}</p></div>
+   <div class="dhead"><div class="dtext"><h2>${esc(p.name)}</h2><p class="krname kr">${esc(field(p,/^Tên tiếng Hàn/i)||p.kr)}</p>${p.vn?`<p class="src" style="margin-top:6px">Tên bán tại VN: <b style="color:var(--ink)">${esc(p.vn)}</b></p>`:""}<p class="src" style="margin-top:6px">${esc(p.role||p.step)}</p></div><div class="dthumb${hasPhoto(p)?" photo":""}">${art(p)}</div></div>
    <dl class="dfacts">${fact("Category",cat,true)}${fact("Texture",tex,true)}${fact("Dung tích",size)}${fact("Giá bán lẻ (Hàn)",price)}${fact("Loại da phù hợp",skin,true)}</dl>
    ${ingrHtml}${tagHtml}
    ${sec('Nội dung định vị (Point)',point)}
