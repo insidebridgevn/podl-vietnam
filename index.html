@@ -218,6 +218,9 @@ main{padding-block:8px 80px}
 .scrim.on{opacity:1;pointer-events:auto}
 .drawer{position:fixed;top:0;right:0;bottom:0;width:min(600px,100%);background:var(--surface);z-index:41;transform:translateX(100%);transition:transform .3s ease;overflow-y:auto;padding:calc(env(safe-area-inset-top,0px) + 18px) max(24px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 36px) 24px;display:flex;flex-direction:column;gap:22px}
 .drawer.on{transform:none}
+.drawer>*{flex-shrink:0}
+.drawer .stage{width:100%;min-height:260px}
+.drawer .stage img{position:absolute;inset:0;padding:8%}
 .dtop{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .close{font:inherit;font-weight:600;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 16px;cursor:pointer}
 .drawer .stage{aspect-ratio:16/11}
