@@ -59,6 +59,9 @@
   --i-chestnut:#E3B08E; --i-barley:#A9C895; --i-rice:#D9C38F; --i-oat:#CDB6A1; --i-bean:#EC9A90; --i-care:#9EC0D8;
   --pack:#2C2420; --pack-edge:rgba(255,255,255,.12); color-scheme:dark}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
+html{color-scheme:light}
+img{max-width:100%}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.65;margin:0}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
 .wrap{max-width:1160px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
@@ -296,6 +299,28 @@ footer .wordmark img{height:16px}
 .navinner{gap:10px}
 .navinner .navlinks{order:1;margin-left:auto}
 @media (min-width:701px){.brandrow{display:contents}.brandrow .wordmark{order:0}}
+.pitch{position:relative;background:var(--t-chestnut);border-radius:var(--r-lg);padding:28px 30px;display:flex;flex-direction:column;gap:12px}
+.pitch p{font-size:17px;line-height:1.7;max-width:70ch}
+.copyBtn{align-self:flex-start;font:inherit;font-size:13px;font-weight:700;border:0;border-radius:999px;padding:9px 16px;background:var(--ink);color:var(--bg);cursor:pointer}
+.concerns{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.concern{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:20px 22px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.concern h3{font-size:16.5px;font-weight:700}
+.concern p{font-size:13.5px;color:var(--muted)}
+.plinks{display:flex;flex-wrap:wrap;gap:6px}
+.plink{font:inherit;font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer;text-align:left}
+.plink:hover{border-color:var(--accent);color:var(--accent)}
+.rt{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:8px}
+.rt li{padding-left:4px}
+.rt .plink{padding:4px 10px}
+.rt small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+.faq{display:flex;flex-direction:column;gap:10px}
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:0 20px}
+.faq summary{cursor:pointer;font-weight:700;padding:16px 0;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:20px;line-height:1;color:var(--accent)}
+.faq details[open] summary::after{content:"–"}
+.faq .ans{padding:0 0 18px;color:var(--ink);font-size:14.5px;max-width:75ch}
+.faq .ans .note{display:block;margin-top:8px;font-size:13px;color:var(--warn-ink);background:var(--warn-bg);border-radius:10px;padding:8px 12px}
 </style>
 <script>(function(){var t="light";try{t=localStorage.getItem("podl-theme")||"light"}catch(e){}document.documentElement.setAttribute("data-theme",t==="dark"?"dark":"light")})();</script>
 </head>
@@ -307,6 +332,7 @@ footer .wordmark img{height:16px}
     <div class="brandrow"><a class="wordmark" href="#overview" id="logoSlot">PO<span class="colon">:</span>DL</a><button class="themeBtn" id="themeBtn" type="button" aria-label="Chuyển chế độ tối"></button></div>
     <div class="navlinks" id="tabbar">
       <a href="#overview">Thương hiệu</a>
+      <a href="#guide">Cần biết</a>
       <a href="#products">Sản phẩm</a>
       <a href="#glossary">Thuật ngữ</a>
       <a href="#claims">Claims</a>
@@ -413,6 +439,42 @@ footer .wordmark img{height:16px}
       <li>Trước khi viết claim, xem qua tab Claims.</li>
       <li>File tổng: <a href="https://docs.google.com/spreadsheets/d/10Afe0r5gMNIuGOADIlJ5EB7FP01YJEPwtp2jS7fXv84/edit" target="_blank" rel="noopener">[VI] PO:DL Overall File</a></li>
     </ul></div>
+  </div>
+</section>
+
+<!-- GUIDE -->
+<section class="view" id="v-guide" hidden>
+  <div class="block">
+    <div class="sec-head"><span class="eyebrow">Cho nhân viên mới</span><h2>Những điều cần biết về PO:DL</h2><p>Đọc phần này là đủ để giới thiệu brand, tư vấn sản phẩm cơ bản và trả lời các câu khách hay hỏi.</p></div>
+    <div class="pitch">
+      <span class="eyebrow">Giới thiệu PO:DL trong 30 giây</span>
+      <p id="pitchText">PO:DL là thương hiệu skincare Hàn Quốc của công ty LASTSPRING, ra mắt tháng 4/2025. Brand chỉ tập trung vào một vấn đề là lỗ chân lông. Hoạt chất mạnh nhưng được bọc trong nguyên liệu quen thuộc như hạt dẻ, lúa mạch, gạo, yến mạch nên dùng không bị rát. Chỉ 3 tháng sau khi ra mắt, sữa rửa mặt 2X Fresh Bam Balm to Foam đã đứng số 1 mục Cleansing trên Olive Young.</p>
+      <button class="copyBtn" id="copyPitch" type="button">Sao chép</button>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="sec-head"><h2 style="font-size:26px">Khách gặp vấn đề gì thì gợi ý gì</h2><p>Bấm vào tên sản phẩm để xem chi tiết.</p></div>
+    <div class="concerns" id="concerns"></div>
+  </div>
+
+  <div class="block">
+    <div class="sec-head"><h2 style="font-size:26px">Routine gợi ý</h2><p>Thứ tự dùng tham khảo khi tư vấn. Retinal Cream chỉ dùng buổi tối, sáng hôm sau luôn thoa kem chống nắng.</p></div>
+    <div class="split">
+      <div class="card"><h3>Buổi sáng</h3><ol class="rt" id="rtAM"></ol></div>
+      <div class="card"><h3>Buổi tối</h3><ol class="rt" id="rtPM"></ol></div>
+    </div>
+    <p class="src">Mặt nạ hydrogel dùng sau bước toner, thay cho bước dưỡng hôm đó.</p>
+  </div>
+
+  <div class="block">
+    <div class="sec-head"><h2 style="font-size:26px">Câu hỏi khách hay hỏi</h2></div>
+    <div class="faq" id="faq"></div>
+  </div>
+
+  <div class="block">
+    <div class="sec-head"><h2 style="font-size:26px">Tài liệu nội bộ</h2><p>Theo sheet Brand Link. Cần quyền truy cập Google Drive của công ty.</p></div>
+    <div class="channels" id="docs"></div>
   </div>
 </section>
 
@@ -590,7 +652,7 @@ let line="all";
 function chipGroup(el,items,onpick){el.innerHTML="";items.forEach(([v,label],i)=>{const b=document.createElement("button");b.type="button";b.className="fchip";b.textContent=label;b.dataset.v=v;b.setAttribute("aria-pressed",i===0?"true":"false");b.onclick=()=>{[...el.children].forEach(x=>x.setAttribute("aria-pressed",x===b?"true":"false"));onpick(v)};el.appendChild(b)})}
 chipGroup(document.getElementById("lineFilters"),[["all","Tất cả"],["new","Pore-Obsession"],["core","Dòng hiện có"],["mask","Mặt nạ"],["tone:chestnut","Hạt dẻ"],["tone:barley","Lúa mạch"],["tone:rice","Gạo"],["tone:oat","Yến mạch"],["tone:bean","Đậu đỏ"]],v=>{line=v;renderShelf()});
 function setLine(v){line=v;[...document.getElementById("lineFilters").children].forEach(x=>x.setAttribute("aria-pressed",x.dataset.v===v?"true":"false"));renderShelf()}
-document.querySelector(".lines").addEventListener("click",e=>{const b=e.target.closest(".lineCard");if(!b)return;document.getElementById("prodSearch").value="";setLine("tone:"+b.dataset.tone);location.hash="products"});
+document.querySelector(".lines").addEventListener("click",e=>{const b=e.target.closest(".lineCard");if(!b)return;document.getElementById("prodSearch").value="";setLine("tone:"+b.dataset.tone);go("products")});
 function card(p){return `<button class="prod" type="button" data-sku="${p.sku}" style="${tone(p.tone)}">
   <div class="stage${hasPhoto(p)?" photo":""}">${/HERO/i.test(p.step)?'<span class="flag">Hero SKU</span>':p.sku==="PODL-CLN-01"?'<span class="flag">Hero VN</span>':""}${art(p)}<span class="sku">${p.sku}</span></div>
   <div class="meta"><span class="lname">${esc(p.isNew?"Pore-Obsession":TONE_NAME[p.tone])}</span><h3>${esc(p.name)}</h3><span class="sz">${esc(p.type)} · ${esc(p.size)}</span></div></button>`}
@@ -660,6 +722,50 @@ document.getElementById("glossSearch").addEventListener("input",renderGloss);
 document.getElementById("claimsGrid").innerHTML=CLAIMS.map(c=>`<div class="claim"><h3>${esc(c[0])}</h3><span class="ap">${esc(c[1])}</span><p>${esc(c[2])}</p></div>`).join("");
 document.getElementById("guards").innerHTML=GUARDS.map((g,i)=>`<div class="gitem"><span class="n">${i+1}</span><p>${esc(g)}</p></div>`).join("");
 
+/* guide */
+const CONCERNS=[
+ ["Lỗ chân lông to, mụn đầu đen, da dầu","Nhóm khách chính của dòng Chestnut.",["PODL-CLN-01","PODL-PO-02","PODL-PO-03","PODL-MSK-12"]],
+ ["Lão hoá sớm, nếp nhăn nhỏ, da kém săn","Retinal Cream hợp người muốn bắt đầu với retinal nhẹ nhàng hơn retinol.",["PODL-PO-05","PODL-PO-03","PODL-MSK-08"]],
+ ["Da khô, thiếu nước","Ưu tiên dòng Lúa mạch cấp ẩm.",["PODL-PAD-03","PODL-TNR-04","PODL-MSK-09","PODL-CRM-05"]],
+ ["Da nhạy cảm, hàng rào da yếu","Dòng Yến mạch phục hồi, có thể dùng sau treatment.",["PODL-CRM-05","PODL-MSK-10","PODL-PAD-03"]],
+ ["Da xỉn màu, không đều màu","Làm sáng và tăng độ glow.",["PODL-MSK-11","PODL-SRM-07","PODL-MSK-08"]],
+ ["Mặt sưng buổi sáng, da nóng sau nắng","Mặt nạ mát lạnh, dùng nhanh trước khi trang điểm.",["PODL-MSK-12"]],
+ ["Cần chống nắng hằng ngày","Dạng serum lỏng nhẹ, hợp trời nóng ẩm.",["PODL-SUN-06"]]
+];
+const AM=[["PODL-CLN-01","Rửa mặt"],["PODL-TNR-04","Toner"],["PODL-SRM-07","Ampoule"],["PODL-CRM-05","Kem dưỡng"],["PODL-SUN-06","Chống nắng, bước cuối buổi sáng"]];
+const PM=[["PODL-CLN-01","Tẩy trang và rửa mặt trong 1 bước"],["PODL-PO-02","Toner pad"],["PODL-PO-03","Serum"],["PODL-PO-05","Kem đêm, chỉ dùng buổi tối"]];
+const FAQ=[
+ ["PO:DL là brand nước nào?","Hàn Quốc. Brand thuộc công ty LASTSPRING Inc., ra mắt tháng 4/2025, bán chủ yếu ở Olive Young và store online chính thức."],
+ ["Mua PO:DL ở Việt Nam ở đâu?","Shop chính thức trên Shopee. Các kênh TikTok, Facebook, Instagram, Threads xem ở tab Kênh."],
+ ["Giá ở Việt Nam bao nhiêu?","Giá VN xem trên Shopee. Giá trong Product Bible là giá bán lẻ ở Hàn (₩), chỉ để tham khảo nội bộ, không báo cho khách."],
+ ["Da nhạy cảm dùng được không?","Các sản phẩm đều có kết quả thử kích ứng trên người là 0,00%. Da quá nhạy thì khuyên khách thử ở một vùng nhỏ trước.","Luôn nói \"theo thử nghiệm trên người\", không nói \"không gây dị ứng\"."],
+ ["Sản phẩm có thuần chay không?","Brand theo hướng Clean & Vegan, không thử nghiệm trên động vật. Balm to Foam, Watery Sun Serum và Velvet Cream có công thức thuần chay.","Ghi \"công thức Vegan\", chưa dùng logo chứng nhận vegan."],
+ ["Dùng Balm to Foam rồi có cần rửa mặt lại không?","Không cần. Balm tan thành dầu khi massage, thêm nước thì lên bọt, tẩy trang và rửa mặt luôn trong một bước. Rửa bằng nước ấm sẽ sạch hơn."],
+ ["Retinal Cream dùng ban ngày được không?","Không. Retinal nhạy với ánh sáng nên chỉ dùng buổi tối, sáng hôm sau phải thoa kem chống nắng."],
+ ["Volufiline Bubble Serum có giống tiêm filler không?","Không. Volufiline™ giúp da trông đầy đặn hơn khi bôi ngoài da, không phải filler.","Không so sánh với filler tiêm trong bất kỳ nội dung nào."],
+ ["Mặt nạ hydrogel khác mặt nạ giấy thế nào?","Mặt nạ dạng gel bám sát da hơn. Công nghệ GlassBarrier42™ giữ dưỡng chất trên da và nhả dần theo nhiệt độ cơ thể."]
+];
+const DOCS=[
+ ["Overall File","Brand overview, Product Bible, thuật ngữ, claims","https://docs.google.com/spreadsheets/d/10Afe0r5gMNIuGOADIlJ5EB7FP01YJEPwtp2jS7fXv84/edit"],
+ ["Master Plan","Kế hoạch tổng","https://docs.google.com/spreadsheets/d/1yJmegF-eww6Nm7RKptF9YXa9xNN9zTJYSjrw8MvQnwo/edit?gid=824954971#gid=824954971"],
+ ["Ảnh & video từ brand","Ảnh sản phẩm, model, thumbnail, video","https://drive.google.com/drive/folders/1jwcSUKwX1GpN74hp76Xq0vmutz_oLElD"],
+ ["Logo","File logo đen và trắng","https://drive.google.com/drive/folders/1Xx8wHH-apQHqxfmeco3vfK3vr12xy85q?usp=drive_link"],
+ ["Brand Deck (KOR)","Bản tiếng Hàn","https://drive.google.com/file/d/1sIMoCkTbplwp94H0_eOjzimxnF-QnvhJ/view?usp=sharing"],
+ ["Brand Deck (ENG)","Bản tiếng Anh","https://drive.google.com/file/d/17MYQzLCZs3Oz-cSBa3wRS4Y3lYnNS33x/view?usp=sharing"]
+];
+const pname=s=>{const p=PRODUCTS.find(x=>x.sku===s);return p?p.name:s};
+const pbtn=s=>`<button class="plink" type="button" data-sku="${s}">${esc(pname(s))}</button>`;
+document.getElementById("concerns").innerHTML=CONCERNS.map(c=>`<div class="concern"><h3>${esc(c[0])}</h3><p>${esc(c[1])}</p><div class="plinks">${c[2].map(pbtn).join("")}</div></div>`).join("");
+const rt=a=>a.map(([s,n])=>`<li>${pbtn(s)}<small>${esc(n)}</small></li>`).join("");
+document.getElementById("rtAM").innerHTML=rt(AM);document.getElementById("rtPM").innerHTML=rt(PM);
+document.getElementById("faq").innerHTML=FAQ.map(f=>`<details><summary>${esc(f[0])}</summary><div class="ans">${esc(f[1])}${f[2]?`<span class="note">Lưu ý khi trả lời: ${esc(f[2])}</span>`:""}</div></details>`).join("");
+document.getElementById("docs").innerHTML=DOCS.map(d=>`<a class="ch" href="${d[2]}" target="_blank" rel="noopener"><span class="go">↗</span><span class="pf">${esc(d[0])}</span><span class="hd">${esc(d[1])}</span></a>`).join("");
+document.getElementById("v-guide").addEventListener("click",e=>{const b=e.target.closest(".plink");if(b)openDrawer(b.dataset.sku)});
+document.getElementById("copyPitch").addEventListener("click",e=>{const t=document.getElementById("pitchText").textContent,b=e.currentTarget;
+  const done=()=>{b.textContent="Đã sao chép";setTimeout(()=>b.textContent="Sao chép",1800)};
+  try{navigator.clipboard.writeText(t).then(done,()=>{selectText()})}catch(err){selectText()}
+  function selectText(){const r=document.createRange();r.selectNodeContents(document.getElementById("pitchText"));const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent="Đã chọn, nhấn Ctrl+C"}});
+
 /* theme */
 const SUN='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
 const MOON='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>';
@@ -668,12 +774,17 @@ function setTheme(t){document.documentElement.setAttribute("data-theme",t);try{l
 setTheme(document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light");
 document.getElementById("themeBtn").onclick=()=>setTheme(document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark");
 
-/* routing */
-const VIEWS=["overview","products","glossary","claims","freecast","links"];
-function route(){const h=(location.hash||"").slice(1);const v=VIEWS.includes(h)?h:"overview";
+/* routing: switch views directly, hash is only a bookmark */
+const VIEWS=["overview","guide","products","glossary","claims","freecast","links"];
+function show(v,scroll){if(!VIEWS.includes(v))v="overview";
   VIEWS.forEach(x=>document.getElementById("v-"+x).hidden=x!==v);
-  document.querySelectorAll("#tabbar a").forEach(a=>a.setAttribute("aria-current",a.getAttribute("href")==="#"+v?"page":"false"));closeDrawer();}
-window.addEventListener("hashchange",()=>{route();window.scrollTo(0,0)});
+  document.querySelectorAll("#tabbar a").forEach(a=>a.setAttribute("aria-current",a.getAttribute("href")==="#"+v?"page":"false"));
+  closeDrawer();if(scroll)window.scrollTo({top:0,behavior:"auto"});}
+function go(v){show(v,true);try{history.replaceState(null,"","#"+v)}catch(e){}}
+document.addEventListener("click",e=>{const a=e.target.closest('a[href^="#"]');if(!a)return;const v=a.getAttribute("href").slice(1);
+  if(VIEWS.includes(v)){e.preventDefault();go(v)}});
+window.addEventListener("hashchange",()=>show((location.hash||"").slice(1),true));
+function route(){show((location.hash||"").slice(1),false)}
 renderShelf();renderGloss();route();
 </script>
 
