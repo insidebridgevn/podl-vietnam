@@ -250,6 +250,9 @@ main{padding-block:8px 80px}
 .term .cat.tech{background:var(--t-care);color:var(--i-care)}
 .term p{font-size:14px}
 .term .skus{display:flex;flex-wrap:wrap;gap:5px}
+.term .skuBtn{font:inherit;font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--ink);cursor:pointer;text-align:left}
+.term .skuBtn::after{content:" →";color:var(--accent)}
+.term .skuBtn:hover{border-color:var(--accent);color:var(--accent)}
 .term .skus span{font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--muted)}
 .term .gnote{font-size:13px;color:var(--warn-ink);background:var(--warn-bg);border-radius:10px;padding:9px 12px}
 
@@ -708,6 +711,19 @@ const TECH=/™|Technology|Texture|Formula|delivery|Complex|C\.C\.F/i;
 const GL=PB.gloss.map(g=>({en:g[0],vn:g[1],use:g[2],skus:g[3],note:g[4],kind:TECH.test(g[0])&&!/Shell|Barley Extract|Retinal \(|Panthenol|Niacinamide|PDRN/.test(g[0])?"Công nghệ":"Thành phần"}));
 let gcat="all";
 chipGroup(document.getElementById("catFilters"),[["all","Tất cả"],["Thành phần","Thành phần"],["Công nghệ","Công nghệ"]],v=>{gcat=v;renderGloss()});
+/* glossary: link product names to their Product Bible */
+const KW=[["balm to foam","PODL-CLN-01"],["frozen40","PODL-PAD-03"],["water ?pop","PODL-TNR-04"],["velvet","PODL-CRM-05"],["sun(screen)? serum","PODL-SUN-06"],
+ ["unbeli","PODL-SRM-07"],["tgg","PODL-MSK-08"],["hyal-?[sz]ome","PODL-MSK-09"],["oat ceramide","PODL-MSK-10"],["glutathione","PODL-MSK-11"],
+ ["red bean","PODL-MSK-12"],["pha toner","PODL-PO-02"],["peptide bubble|volufiline bubble","PODL-PO-03"],["retinal cream","PODL-PO-05"]];
+function skuChips(txt){
+  return String(txt).split(/;\s*|\n+/).map(s=>s.trim()).filter(Boolean).map(seg=>{
+    const low=seg.toLowerCase(); const hits=[];
+    KW.forEach(([re,sku])=>{if(new RegExp(re).test(low)&&!hits.includes(sku)&&PRODUCTS.some(p=>p.sku===sku))hits.push(sku)});
+    if(!hits.length) return `<span>${esc(seg)}</span>`;
+    return hits.map(s=>`<button class="skuBtn" type="button" data-sku="${s}">${esc(pname(s))}</button>`).join("");
+  }).join("");
+}
+const pname=s=>{const p=PRODUCTS.find(x=>x.sku===s);return p?p.name:s};
 function renderGloss(){
   const q=document.getElementById("glossSearch").value.trim().toLowerCase();
   const list=GL.filter(g=>(gcat==="all"||g.kind===gcat)&&(!q||Object.values(g).join(" ").toLowerCase().includes(q)));
@@ -715,10 +731,11 @@ function renderGloss(){
   document.getElementById("gloss").innerHTML=list.map(g=>`<article class="term">
     <div class="top"><div><h3>${esc(g.en)}</h3>${g.vn&&g.vn!==g.en?`<span class="vn">${esc(g.vn)}</span>`:""}</div><span class="cat${g.kind==="Công nghệ"?" tech":""}">${g.kind}</span></div>
     <p>${esc(g.use).replace(/\n+/g,"<br>")}</p>
-    <div class="skus">${g.skus.split(/;\s*|\n+/).map(s=>s.trim()).filter(Boolean).map(s=>`<span>${esc(s)}</span>`).join("")}</div>
+    <div class="skus">${skuChips(g.skus)}</div>
     ${g.note?`<div class="gnote">${esc(g.note)}</div>`:""}</article>`).join("")||'<p class="count">Không có thuật ngữ khớp.</p>';
 }
 document.getElementById("glossSearch").addEventListener("input",renderGloss);
+document.getElementById("gloss").addEventListener("click",e=>{const b=e.target.closest(".skuBtn");if(b)openDrawer(b.dataset.sku)});
 
 /* claims */
 document.getElementById("claimsGrid").innerHTML=CLAIMS.map(c=>`<div class="claim"><h3>${esc(c[0])}</h3><span class="ap">${esc(c[1])}</span><p>${esc(c[2])}</p></div>`).join("");
@@ -755,7 +772,6 @@ const DOCS=[
  ["Brand Deck (KOR)","Bản tiếng Hàn","https://drive.google.com/file/d/1sIMoCkTbplwp94H0_eOjzimxnF-QnvhJ/view?usp=sharing"],
  ["Brand Deck (ENG)","Bản tiếng Anh","https://drive.google.com/file/d/17MYQzLCZs3Oz-cSBa3wRS4Y3lYnNS33x/view?usp=sharing"]
 ];
-const pname=s=>{const p=PRODUCTS.find(x=>x.sku===s);return p?p.name:s};
 const pbtn=s=>`<button class="plink" type="button" data-sku="${s}">${esc(pname(s))}</button>`;
 document.getElementById("concerns").innerHTML=CONCERNS.map(c=>`<div class="concern"><h3>${esc(c[0])}</h3><p>${esc(c[1])}</p><div class="plinks">${c[2].map(pbtn).join("")}</div></div>`).join("");
 const rt=a=>a.map(([s,n])=>`<li>${pbtn(s)}<small>${esc(n)}</small></li>`).join("");
