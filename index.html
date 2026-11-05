@@ -415,7 +415,7 @@ footer .wordmark img{height:16px}
   <div class="block">
     <div class="sec-head"><span class="eyebrow">Cấu trúc thương hiệu</span><h2>Danh mục bán tại Việt Nam.</h2></div>
     <div class="structure">
-      <div class="scell new"><h3>Chăm sóc lỗ chân lông · Pore-Obsession</h3><p>Chestnut PHA Toner Pad · Chestnut Volufiline Bubble Serum (Hero) · Chestnut Retinal Cream</p></div>
+      <div class="scell new"><h3>Chăm sóc lỗ chân lông · Pore-Obsession</h3><p>Chestnut PHA Toner Pad · Chestnut Volufiline Bubble Serum · Chestnut Retinal Cream</p></div>
       <div class="scell"><h3>Làm sạch</h3><p>2X Fresh Bam Balm to Foam</p></div>
       <div class="scell"><h3>Dưỡng ẩm</h3><p>Frozen40 Essence Pad · Water Pop Jelly Toner · Oat C.C.F All-Day Velvet Cream</p></div>
       <div class="scell"><h3>Chống nắng</h3><p>Rice PDRN 4X Watery Sunscreen Serum SPF50+ PA++++</p></div>
@@ -619,13 +619,15 @@ const MAP={
  "PODL-PO-05":["cream","chestnut",null,"PO:DL Chestnut Retinal Cream 55g"]
 };
 const ROUTINE=[["PODL-CLN-01","01","Làm sạch"],["PODL-PO-02","02","Cân bằng pH lỗ chân lông"],["PODL-PO-03","03","Serum se lỗ chân lông"],["PODL-PO-05","04","Kem dưỡng đêm"]];
+const HERO="PODL-CLN-01"; /* Hero SKU tại Việt Nam */
+const noHero=s=>String(s||"").replace(/\s*[–-]\s*được chỉ định là HERO SKU\s*(\([^)]*\))?/gi,"").replace(/\s*\(HERO SKU\)/gi,"");
 const TONE_NAME={chestnut:"Hạt dẻ",barley:"Lúa mạch",rice:"Gạo",oat:"Yến mạch",bean:"Đậu đỏ",care:"TGG · Dụng cụ"};
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const money=s=>String(s||"").replace(/₩([\d,]+)/g,(m,n)=>"₩"+n.replace(/,/g,"."));
 const isPending=v=>/^(ĐANG CHỜ|Đang chờ)/i.test((v||"").trim());
 const tone=l=>`--t:var(--t-${l});--i:var(--i-${l})`;
 const PRODUCTS=Object.keys(MAP).filter(s=>PB.catalog[s]).map(s=>{const c=PB.catalog[s],b=PB.bible[s]||{fields:[]};const[img,ton,shape,vn]=MAP[s];
-  return {sku:s,img,tone:ton,shape,vn,isNew:s.startsWith("PODL-PO"),name:c.en,kr:c.kr,step:c.step.replace(/\s+/g," ").trim(),type:c.type.trim(),size:c.size.replace(/\s+/g," ").trim(),price:money(c.price),hero:c.hero,fields:b.fields,role:b.role||""}});
+  return {sku:s,img,tone:ton,shape,vn,isNew:s.startsWith("PODL-PO"),name:c.en,kr:c.kr,step:noHero(c.step).replace(/\s+/g," ").trim(),type:noHero(c.type).trim(),size:c.size.replace(/\s+/g," ").trim(),price:money(c.price),hero:c.hero,fields:b.fields,role:noHero(b.role)}});
 PRODUCTS.sort((a,b)=>(b.isNew-a.isNew)||a.sku.localeCompare(b.sku));
 
 function art(p){
@@ -644,7 +646,7 @@ if(ASSETS.padEditorial){document.getElementById("featImg").style.backgroundImage
 /* 5-step system */
 document.getElementById("system").innerHTML=ROUTINE.map(([sku,n,role])=>{const p=PRODUCTS.find(x=>x.sku===sku);if(!p)return "";
   return `<button class="step" type="button" data-sku="${p.sku}"><div class="thumb">${hasPhoto(p)?`<img src="${ASSETS.products[p.img]}" alt="">`:art(p)}</div>
-  <span class="n">BƯỚC ${n}</span>${/HERO/i.test(p.step)?'<span class="hero-tag">Hero SKU</span>':""}<h3>${esc(p.name)}</h3><p>${esc(role)}</p></button>`}).join("");
+  <span class="n">BƯỚC ${n}</span>${p.sku===HERO?'<span class="hero-tag">Hero SKU</span>':""}<h3>${esc(p.name)}</h3><p>${esc(role)}</p></button>`}).join("");
 document.getElementById("system").addEventListener("click",e=>{const b=e.target.closest(".step");if(b)openDrawer(b.dataset.sku)});
 
 /* shelf */
@@ -654,7 +656,7 @@ chipGroup(document.getElementById("lineFilters"),[["all","Tất cả"],["new","P
 function setLine(v){line=v;[...document.getElementById("lineFilters").children].forEach(x=>x.setAttribute("aria-pressed",x.dataset.v===v?"true":"false"));renderShelf()}
 document.querySelector(".lines").addEventListener("click",e=>{const b=e.target.closest(".lineCard");if(!b)return;document.getElementById("prodSearch").value="";setLine("tone:"+b.dataset.tone);go("products")});
 function card(p){return `<button class="prod" type="button" data-sku="${p.sku}" style="${tone(p.tone)}">
-  <div class="stage${hasPhoto(p)?" photo":""}">${/HERO/i.test(p.step)?'<span class="flag">Hero SKU</span>':p.sku==="PODL-CLN-01"?'<span class="flag">Hero VN</span>':""}${art(p)}<span class="sku">${p.sku}</span></div>
+  <div class="stage${hasPhoto(p)?" photo":""}">${p.sku===HERO?'<span class="flag">Hero SKU</span>':""}${art(p)}<span class="sku">${p.sku}</span></div>
   <div class="meta"><span class="lname">${esc(p.isNew?"Pore-Obsession":TONE_NAME[p.tone])}</span><h3>${esc(p.name)}</h3><span class="sz">${esc(p.type)} · ${esc(p.size)}</span></div></button>`}
 function renderShelf(){
   const q=document.getElementById("prodSearch").value.trim().toLowerCase();
@@ -668,7 +670,7 @@ document.getElementById("prodSearch").addEventListener("input",renderShelf);
 document.getElementById("shelfWrap").addEventListener("click",e=>{const b=e.target.closest(".prod");if(b)openDrawer(b.dataset.sku)});
 
 /* drawer = Product Bible */
-const field=(p,re)=>{const f=p.fields.find(f=>re.test(f[0]));return f?f[1]:""};
+const field=(p,re)=>{const f=p.fields.find(f=>re.test(f[0]));return f?noHero(f[1]):""};
 function rich(v){
   if(isPending(v)) return `<span class="pending">${esc(v)}</span>`;
   const lines=String(v).split(/\n+/).map(s=>s.trim()).filter(Boolean);
