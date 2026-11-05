@@ -290,14 +290,21 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:13px}
 footer .wrap{padding-block:28px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
 footer .wordmark img{height:16px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.brandrow{display:flex;align-items:center;justify-content:space-between;gap:10px;flex:none}
+.themeBtn{order:2;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:grid;place-items:center;cursor:pointer;transition:background .2s}
+.themeBtn:hover{background:var(--blush)}
+.navinner{gap:10px}
+.navinner .navlinks{order:1;margin-left:auto}
+@media (min-width:701px){.brandrow{display:contents}.brandrow .wordmark{order:0}}
 </style>
+<script>(function(){var t="light";try{t=localStorage.getItem("podl-theme")||"light"}catch(e){}document.documentElement.setAttribute("data-theme",t==="dark"?"dark":"light")})();</script>
 </head>
 <body>
 
 
 <div class="navbar"><div class="wrap">
   <nav class="navinner" aria-label="Mục">
-    <a class="wordmark" href="#overview" id="logoSlot">PO<span class="colon">:</span>DL</a>
+    <div class="brandrow"><a class="wordmark" href="#overview" id="logoSlot">PO<span class="colon">:</span>DL</a><button class="themeBtn" id="themeBtn" type="button" aria-label="Chuyển chế độ tối"></button></div>
     <div class="navlinks" id="tabbar">
       <a href="#overview">Thương hiệu</a>
       <a href="#products">Sản phẩm</a>
@@ -316,8 +323,8 @@ footer .wordmark img{height:16px}
   <div class="hero">
     <div class="hero-copy">
       <span class="eyebrow">Pore-Obsession</span>
-      <h1>Hiệu năng cao. <em>Không gây đau rát.</em></h1>
-      <p>Pore Reset không phải một lời hứa, mà là một hệ thống. PO:DL xem lỗ chân lông là gốc của mọi vấn đề da có thể nhìn thấy, và nhắm vào chu kỳ bên dưới: bã nhờn, thể tích và nhịp độ tái tạo.</p>
+      <h1>Chăm lỗ chân lông <em>hiệu quả mà không rát da.</em></h1>
+      <p>PO:DL cho rằng phần lớn vấn đề da mình nhìn thấy, như lỗ chân lông to, da sần, xỉn màu hay nếp nhăn, đều bắt đầu từ lỗ chân lông. Vì vậy sản phẩm xử lý từ gốc: lượng dầu, độ giãn và tốc độ thay da của lỗ chân lông.</p>
       <div class="badges"><span class="badge">Clean &amp; Vegan</span><span class="badge">Cruelty-free</span><span class="badge">0,00% kích ứng (thử nghiệm trên người)</span><span class="badge">Sensory Standard™</span></div>
     </div>
     <div class="hero-art" id="heroArt" aria-hidden="true"></div>
@@ -339,17 +346,17 @@ footer .wordmark img{height:16px}
       <div><b>50+</b><span>influencer, hơn 10 triệu lượt xem</span></div>
       <div><b>4,45</b><span>điểm Hwahae cho 2X Fresh Bam Balm to Foam</span></div>
     </div>
-    <p class="src">Thứ hạng Olive Young tính tại 08:00 KST ngày 08/07/2025. Kiểm tra lại thứ hạng và điểm Hwahae trước khi dùng trong campaign mới.</p>
+    <p class="src">Thứ hạng Olive Young lấy lúc 08:00 KST ngày 08/07/2025. Trước khi đưa vào campaign mới, nhớ kiểm tra lại thứ hạng và điểm Hwahae.</p>
   </div>
 
   <div class="block">
-    <div class="sec-head"><span class="eyebrow">Thông điệp chính</span><h2>Năm thông điệp xuyên suốt.</h2></div>
+    <div class="sec-head"><span class="eyebrow">Thông điệp chính</span><h2>5 ý chính khi nói về PO:DL.</h2></div>
     <div class="msgs">
-      <div class="msg"><span class="n">1</span><h3>Structure First</h3><p>Ưu tiên cấu trúc, hiệu quả sẽ theo sau.</p></div>
-      <div class="msg"><span class="n">2</span><h3>The Mechanism</h3><p>Tập trung vào chu kỳ lỗ chân lông: bã nhờn, thể tích, nhịp độ tái tạo.</p></div>
-      <div class="msg"><span class="n">3</span><h3>The Standard</h3><p>Thay đổi nhìn thấy được là kết quả của việc thiết lập lại cấu trúc lỗ chân lông.</p></div>
-      <div class="msg"><span class="n">4</span><h3>The System</h3><p>Một mối quan tâm duy nhất, năm bước, từ làm sạch đến dưỡng đêm.</p></div>
-      <div class="msg"><span class="n">5</span><h3>Sensory Standard™</h3><p>Hiệu năng cao trong trải nghiệm dễ chịu nhất.</p></div>
+      <div class="msg"><span class="n">1</span><h3>Structure First</h3><p>Sửa từ cấu trúc lỗ chân lông trước, kết quả sẽ đến sau.</p></div>
+      <div class="msg"><span class="n">2</span><h3>The Mechanism</h3><p>Nói rõ sản phẩm tác động vào đâu: dầu thừa, độ giãn, tốc độ thay da.</p></div>
+      <div class="msg"><span class="n">3</span><h3>The Standard</h3><p>Da đẹp lên là nhờ lỗ chân lông được "reset", không phải che tạm.</p></div>
+      <div class="msg"><span class="n">4</span><h3>The System</h3><p>Chỉ tập trung vào lỗ chân lông, theo từng bước từ rửa mặt đến kem đêm.</p></div>
+      <div class="msg"><span class="n">5</span><h3>Sensory Standard™</h3><p>Hoạt chất mạnh nhưng dùng vẫn êm, dễ chịu.</p></div>
     </div>
   </div>
 
@@ -357,25 +364,25 @@ footer .wordmark img{height:16px}
     <div class="img" id="featImg" role="img" aria-label="Chestnut + PHA Toner Pad"></div>
     <div class="txt">
       <span class="eyebrow">Triết lý · Sensory Standard™</span>
-      <h2>Công thức ở điểm da thấy dễ chịu nhất.</h2>
-      <p>Hoạt chất nồng độ cao được bao bọc bằng thành phần siêu thực phẩm (hạt dẻ, yến mạch, lúa mạch, gạo) để giữ hiệu quả mà giảm căng thẳng cho da. Từ lần chạm đầu đến khi thấm hết, mỗi công thức đều được thiết kế cho trạng thái dễ chịu nhất.</p>
-      <blockquote>Thay vì chỉ tăng nồng độ, PO:DL xây công thức tại điểm cân bằng nơi làn da thấy thoải mái nhất.</blockquote>
+      <h2>Mạnh, nhưng da vẫn thấy dễ chịu.</h2>
+      <p>PO:DL không chạy theo kiểu nồng độ càng cao càng tốt. Hoạt chất được bọc trong những nguyên liệu quen thuộc như hạt dẻ, yến mạch, lúa mạch, gạo, để da vẫn nhận đủ hiệu quả mà không bị rát hay căng.</p>
+      <blockquote>Brand gọi nguyên tắc này là Sensory Standard™: dùng mỗi ngày vẫn thoải mái.</blockquote>
     </div>
   </div>
 
   <div class="block">
-    <div class="sec-head"><span class="eyebrow">Chestnut · Trọng tâm tại VN</span><h2>Routine tối với dòng Hạt dẻ.</h2><p>Các sản phẩm Chestnut bán tại Việt Nam, xếp theo thứ tự dùng. Bấm vào từng bước để mở Product Bible.</p></div>
+    <div class="sec-head"><span class="eyebrow">Chestnut · Trọng tâm tại VN</span><h2>Routine tối với dòng Hạt dẻ.</h2><p>Thứ tự dùng các sản phẩm Chestnut đang bán ở VN. Bấm vào sản phẩm để xem chi tiết.</p></div>
     <div class="system" id="system"></div>
   </div>
 
   <div class="block">
-    <div class="sec-head"><span class="eyebrow">Superfood</span><h2>Nguyên liệu bao bọc hoạt chất.</h2></div>
+    <div class="sec-head"><span class="eyebrow">Superfood</span><h2>Mỗi dòng gắn với một nguyên liệu.</h2></div>
     <div class="lines">
-      <button class="lineCard" type="button" data-tone="chestnut" style="--t:var(--t-chestnut);--i:var(--i-chestnut)"><span class="dot"></span><b>Hạt dẻ Gongju</b><span>Lỗ chân lông, bã nhờn. Chủ đạo của dòng Pore-Obsession.</span><span class="go">Xem sản phẩm →</span></button>
-      <button class="lineCard" type="button" data-tone="barley" style="--t:var(--t-barley);--i:var(--i-barley)"><span class="dot"></span><b>Lúa mạch xanh Jeju</b><span>Chống oxy hoá, phục hồi hàng rào, làm dịu.</span><span class="go">Xem sản phẩm →</span></button>
-      <button class="lineCard" type="button" data-tone="rice" style="--t:var(--t-rice);--i:var(--i-rice)"><span class="dot"></span><b>Gạo Yeoju</b><span>PDRN từ gạo, glutathione, làm sáng.</span><span class="go">Xem sản phẩm →</span></button>
-      <button class="lineCard" type="button" data-tone="oat" style="--t:var(--t-oat);--i:var(--i-oat)"><span class="dot"></span><b>Yến mạch</b><span>Câu chuyện công thức cho dòng phục hồi hàng rào.</span><span class="go">Xem sản phẩm →</span></button>
-      <button class="lineCard" type="button" data-tone="bean" style="--t:var(--t-bean);--i:var(--i-bean)"><span class="dot"></span><b>Đậu đỏ Haenam</b><span>Mặt nạ làm mát, se khít lỗ chân lông.</span><span class="go">Xem sản phẩm →</span></button>
+      <button class="lineCard" type="button" data-tone="chestnut" style="--t:var(--t-chestnut);--i:var(--i-chestnut)"><span class="dot"></span><b>Hạt dẻ Gongju</b><span>Kiểm soát dầu, chăm lỗ chân lông. Có trong hầu hết sản phẩm Chestnut.</span><span class="go">Xem sản phẩm →</span></button>
+      <button class="lineCard" type="button" data-tone="barley" style="--t:var(--t-barley);--i:var(--i-barley)"><span class="dot"></span><b>Lúa mạch xanh Jeju</b><span>Cấp ẩm, làm dịu, giúp da khoẻ hơn.</span><span class="go">Xem sản phẩm →</span></button>
+      <button class="lineCard" type="button" data-tone="rice" style="--t:var(--t-rice);--i:var(--i-rice)"><span class="dot"></span><b>Gạo Yeoju</b><span>Làm sáng da. Có trong kem chống nắng và mặt nạ.</span><span class="go">Xem sản phẩm →</span></button>
+      <button class="lineCard" type="button" data-tone="oat" style="--t:var(--t-oat);--i:var(--i-oat)"><span class="dot"></span><b>Yến mạch</b><span>Phục hồi cho da khô, nhạy cảm.</span><span class="go">Xem sản phẩm →</span></button>
+      <button class="lineCard" type="button" data-tone="bean" style="--t:var(--t-bean);--i:var(--i-bean)"><span class="dot"></span><b>Đậu đỏ Haenam</b><span>Mặt nạ mát lạnh, giảm sưng, se lỗ chân lông.</span><span class="go">Xem sản phẩm →</span></button>
     </div>
   </div>
 
@@ -403,7 +410,7 @@ footer .wordmark img{height:16px}
       <li>Marketing tập trung dòng Chestnut và 2X Fresh Bam Balm to Foam.</li>
       <li>Ecom list toàn bộ sản phẩm.</li>
       <li>KOL chỉ làm booking freecast.</li>
-      <li>Mọi claim ra ngoài phải qua tab Claims trước.</li>
+      <li>Trước khi viết claim, xem qua tab Claims.</li>
       <li>File tổng: <a href="https://docs.google.com/spreadsheets/d/10Afe0r5gMNIuGOADIlJ5EB7FP01YJEPwtp2jS7fXv84/edit" target="_blank" rel="noopener">[VI] PO:DL Overall File</a></li>
     </ul></div>
   </div>
@@ -412,7 +419,7 @@ footer .wordmark img{height:16px}
 <!-- PRODUCTS -->
 <section class="view" id="v-products" hidden>
   <div class="block">
-    <div class="sec-head"><span class="eyebrow">Product Bible</span><h2>Sản phẩm</h2><p>14 SKU bán tại Việt Nam, thông tin theo Product Bible. Bấm vào sản phẩm để xem đầy đủ: định vị, vấn đề giải quyết, claim, kết quả lâm sàng và guardrail.</p></div>
+    <div class="sec-head"><span class="eyebrow">Product Bible</span><h2>Sản phẩm</h2><p>14 sản phẩm đang bán ở VN. Bấm vào từng sản phẩm để xem đầy đủ thông tin trong Product Bible.</p></div>
     <div class="toolbar">
       <div class="chips" id="lineFilters" role="group" aria-label="Lọc theo dòng"></div>
       <input class="search" id="prodSearch" type="search" placeholder="Tìm: retinal, PHA, mask…" aria-label="Tìm sản phẩm">
@@ -425,7 +432,7 @@ footer .wordmark img{height:16px}
 <!-- GLOSSARY -->
 <section class="view" id="v-glossary" hidden>
   <div class="block">
-    <div class="sec-head"><span class="eyebrow">Thành phần chủ đạo &amp; công nghệ</span><h2>Bảng thuật ngữ</h2><p>Theo sheet 2.1 Product_Ingredients. Mỗi thuật ngữ có công dụng, SKU áp dụng và guardrail khi viết claim.</p></div>
+    <div class="sec-head"><span class="eyebrow">Thành phần chủ đạo &amp; công nghệ</span><h2>Bảng thuật ngữ</h2><p>Giải thích các thành phần và công nghệ hay gặp: dùng để làm gì, có trong sản phẩm nào, và cần lưu ý gì khi viết claim.</p></div>
     <div class="toolbar">
       <div class="chips" id="catFilters" role="group" aria-label="Lọc theo nhóm"></div>
       <input class="search" id="glossSearch" type="search" placeholder="Tìm: HYAL-MICROSOME, PDRN…" aria-label="Tìm thuật ngữ">
@@ -438,11 +445,11 @@ footer .wordmark img{height:16px}
 <!-- CLAIMS -->
 <section class="view" id="v-claims" hidden>
   <div class="block">
-    <div class="sec-head"><span class="eyebrow">Certifications &amp; Guardrails</span><h2>Claims được phép dùng</h2><p>Các chứng nhận và claim đã có cơ sở, kèm cách diễn đạt đúng.</p></div>
+    <div class="sec-head"><span class="eyebrow">Certifications &amp; Guardrails</span><h2>Claim được dùng</h2><p>Những claim đã có cơ sở, và cách viết sao cho đúng.</p></div>
     <div class="claims" id="claimsGrid"></div>
   </div>
   <div class="block">
-    <div class="sec-head"><span class="eyebrow">Đọc trước khi viết claim ra ngoài</span><h2>Marketing guardrails</h2></div>
+    <div class="sec-head"><span class="eyebrow">Marketing guardrails</span><h2>Những điều cần tránh khi viết</h2></div>
     <div class="guards" id="guards"></div>
   </div>
 </section>
@@ -450,7 +457,7 @@ footer .wordmark img{height:16px}
 <!-- FREECAST -->
 <section class="view" id="v-freecast" hidden>
   <div class="block">
-    <div class="sec-head"><span class="eyebrow">KOL · Booking freecast</span><h2>Gửi sản phẩm, nhận clip thật.</h2><p>PO:DL Việt Nam chỉ làm booking freecast: gửi sản phẩm miễn phí cho creator, đổi lại clip review. Không có booking trả phí.</p></div>
+    <div class="sec-head"><span class="eyebrow">KOL · Booking freecast</span><h2>Gửi sản phẩm, nhận clip thật.</h2><p>Ở VN mình chỉ làm freecast: gửi sản phẩm miễn phí cho creator, họ đăng clip review. Không booking trả phí.</p></div>
     <div class="proof">
       <div><b>400</b><span>sample tổng</span></div>
       <div><b>250–350</b><span>clip mỗi tháng, tối thiểu</span></div>
@@ -464,7 +471,7 @@ footer .wordmark img{height:16px}
       <div class="rule"><span class="n">01</span><p>Không creator nào nhận full set.</p></div>
       <div class="rule"><span class="n">02</span><p>Nhận nhiều hơn 2 sản phẩm thì phải đăng nhiều hơn 2 clip.</p></div>
       <div class="rule"><span class="n">03</span><p>Ưu tiên dòng Chestnut và 2X Fresh Bam Balm to Foam.</p></div>
-      <div class="rule"><span class="n">04</span><p>Chọn creator có chọn lọc, hợp hình ảnh của thương hiệu.</p></div>
+      <div class="rule"><span class="n">04</span><p>Chọn creator hợp với hình ảnh brand, không gửi tràn lan.</p></div>
     </div>
   </div>
   <div class="dd">
@@ -475,7 +482,7 @@ footer .wordmark img{height:16px}
 
 <!-- LINKS -->
 <section class="view" id="v-links" hidden>
-  <div class="sec-head"><span class="eyebrow">Official channels</span><h2>Kênh chính thức</h2><p>Dùng đúng các link này khi brief KOL hoặc trả lời khách.</p></div>
+  <div class="sec-head"><span class="eyebrow">Official channels</span><h2>Kênh chính thức</h2><p>Khi brief KOL hay trả lời khách, gửi đúng các link này.</p></div>
   <div>
     <p class="grouptitle">Ecommerce</p>
     <div class="channels">
@@ -549,7 +556,7 @@ const MAP={
  "PODL-PO-03":["serum","chestnut",null,"PO:DL Chestnut Volufiline Bubble Serum"],
  "PODL-PO-05":["cream","chestnut",null,"PO:DL Chestnut Retinal Cream 55g"]
 };
-const ROUTINE=[["PODL-CLN-01","01","Làm sạch"],["PODL-PO-02","02","Cân bằng pH lỗ chân lông"],["PODL-PO-03","03","Se khít lỗ chân lông"],["PODL-PO-05","04","Pore Reset ban đêm"]];
+const ROUTINE=[["PODL-CLN-01","01","Làm sạch"],["PODL-PO-02","02","Cân bằng pH lỗ chân lông"],["PODL-PO-03","03","Serum se lỗ chân lông"],["PODL-PO-05","04","Kem dưỡng đêm"]];
 const TONE_NAME={chestnut:"Hạt dẻ",barley:"Lúa mạch",rice:"Gạo",oat:"Yến mạch",bean:"Đậu đỏ",care:"TGG · Dụng cụ"};
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const money=s=>String(s||"").replace(/₩([\d,]+)/g,(m,n)=>"₩"+n.replace(/,/g,"."));
@@ -652,6 +659,14 @@ document.getElementById("glossSearch").addEventListener("input",renderGloss);
 /* claims */
 document.getElementById("claimsGrid").innerHTML=CLAIMS.map(c=>`<div class="claim"><h3>${esc(c[0])}</h3><span class="ap">${esc(c[1])}</span><p>${esc(c[2])}</p></div>`).join("");
 document.getElementById("guards").innerHTML=GUARDS.map((g,i)=>`<div class="gitem"><span class="n">${i+1}</span><p>${esc(g)}</p></div>`).join("");
+
+/* theme */
+const SUN='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+const MOON='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>';
+function setTheme(t){document.documentElement.setAttribute("data-theme",t);try{localStorage.setItem("podl-theme",t)}catch(e){}
+  const b=document.getElementById("themeBtn");b.innerHTML=t==="dark"?SUN:MOON;b.setAttribute("aria-label",t==="dark"?"Chuyển chế độ sáng":"Chuyển chế độ tối");}
+setTheme(document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light");
+document.getElementById("themeBtn").onclick=()=>setTheme(document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark");
 
 /* routing */
 const VIEWS=["overview","products","glossary","claims","freecast","links"];
