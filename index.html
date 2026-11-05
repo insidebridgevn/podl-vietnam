@@ -298,6 +298,7 @@ main{padding-block:8px 80px}
 .ch.feat{background:var(--accent);color:var(--accent-ink);border-color:transparent}
 .ch.feat .hd{color:var(--accent-ink);opacity:.85}
 .ch.feat .go{background:var(--accent-ink);color:var(--accent)}
+#docs{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
 .grouptitle{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
 
 footer{border-top:1px solid var(--line);color:var(--muted);font-size:13px}
@@ -349,6 +350,7 @@ footer .wordmark img{height:16px}
       <a href="#claims">Claims</a>
       <a href="#freecast">Freecast</a>
       <a href="#links">Kênh</a>
+      <a href="#docs">Tài liệu</a>
     </div>
   </nav>
 </div></div>
@@ -483,8 +485,12 @@ footer .wordmark img{height:16px}
     <div class="faq" id="faq"></div>
   </div>
 
+</section>
+
+<!-- DOCS -->
+<section class="view" id="v-docs" hidden>
   <div class="block">
-    <div class="sec-head"><h2 style="font-size:26px">Tài liệu nội bộ</h2><p>Theo sheet Brand Link. Cần quyền truy cập Google Drive của công ty.</p></div>
+    <div class="sec-head"><span class="eyebrow">Brand Link</span><h2>Tài liệu nội bộ</h2><p>File và thư mục gốc của brand. Cần đăng nhập Google bằng tài khoản có quyền xem Drive của công ty.</p></div>
     <div class="channels" id="docs"></div>
   </div>
 </section>
@@ -773,7 +779,6 @@ const FAQ=[
 ];
 const DOCS=[
  ["Overall File","Brand overview, Product Bible, thuật ngữ, claims","https://docs.google.com/spreadsheets/d/10Afe0r5gMNIuGOADIlJ5EB7FP01YJEPwtp2jS7fXv84/edit"],
- ["Master Plan","Kế hoạch tổng","https://docs.google.com/spreadsheets/d/1yJmegF-eww6Nm7RKptF9YXa9xNN9zTJYSjrw8MvQnwo/edit?gid=824954971#gid=824954971"],
  ["Ảnh & video từ brand","Ảnh sản phẩm, model, thumbnail, video","https://drive.google.com/drive/folders/1jwcSUKwX1GpN74hp76Xq0vmutz_oLElD"],
  ["Logo","File logo đen và trắng","https://drive.google.com/drive/folders/1Xx8wHH-apQHqxfmeco3vfK3vr12xy85q?usp=drive_link"],
  ["Brand Deck (KOR)","Bản tiếng Hàn","https://drive.google.com/file/d/1sIMoCkTbplwp94H0_eOjzimxnF-QnvhJ/view?usp=sharing"],
@@ -800,7 +805,7 @@ setTheme(document.documentElement.getAttribute("data-theme")==="dark"?"dark":"li
 document.getElementById("themeBtn").onclick=()=>setTheme(document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark");
 
 /* routing: switch views directly, hash is only a bookmark */
-const VIEWS=["overview","guide","products","glossary","claims","freecast","links"];
+const VIEWS=["overview","guide","products","glossary","claims","freecast","links","docs"];
 function show(v,scroll){if(!VIEWS.includes(v))v="overview";
   VIEWS.forEach(x=>document.getElementById("v-"+x).hidden=x!==v);
   document.querySelectorAll("#tabbar a").forEach(a=>a.setAttribute("aria-current",a.getAttribute("href")==="#"+v?"page":"false"));
