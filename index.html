@@ -348,7 +348,6 @@ footer .wordmark img{height:16px}
       <a href="#products">Sản phẩm</a>
       <a href="#glossary">Thuật ngữ</a>
       <a href="#claims">Claims</a>
-      <a href="#freecast">Freecast</a>
       <a href="#links">Kênh</a>
       <a href="#docs">Tài liệu</a>
     </div>
@@ -448,7 +447,6 @@ footer .wordmark img{height:16px}
     <div class="card"><h3>Ưu tiên tại Việt Nam</h3><ul>
       <li>Marketing tập trung dòng Chestnut và 2X Fresh Bam Balm to Foam.</li>
       <li>Ecom list toàn bộ sản phẩm.</li>
-      <li>KOL chỉ làm booking freecast.</li>
       <li>Trước khi viết claim, xem qua tab Claims.</li>
       <li>File tổng: <a href="https://docs.google.com/spreadsheets/d/10Afe0r5gMNIuGOADIlJ5EB7FP01YJEPwtp2jS7fXv84/edit" target="_blank" rel="noopener">[VI] PO:DL Overall File</a></li>
     </ul></div>
@@ -530,32 +528,6 @@ footer .wordmark img{height:16px}
   <div class="block">
     <div class="sec-head"><span class="eyebrow">Marketing guardrails</span><h2>Những điều cần tránh khi viết</h2></div>
     <div class="guards" id="guards"></div>
-  </div>
-</section>
-
-<!-- FREECAST -->
-<section class="view" id="v-freecast" hidden>
-  <div class="block">
-    <div class="sec-head"><span class="eyebrow">KOL · Booking freecast</span><h2>Gửi sản phẩm, nhận clip thật.</h2><p>Ở VN mình chỉ làm freecast: gửi sản phẩm miễn phí cho creator, họ đăng clip review. Không booking trả phí.</p></div>
-    <div class="proof">
-      <div><b>400</b><span>sample tổng</span></div>
-      <div><b>250–350</b><span>clip mỗi tháng, tối thiểu</span></div>
-      <div><b>Micro</b><span>và nano creator là chủ yếu</span></div>
-      <div><b>2</b><span>trọng tâm: dòng Chestnut, Balm to Foam</span></div>
-    </div>
-  </div>
-  <div class="block">
-    <div class="sec-head"><h2 style="font-size:24px">Quy tắc gửi hàng</h2></div>
-    <div class="rules">
-      <div class="rule"><span class="n">01</span><p>Không creator nào nhận full set.</p></div>
-      <div class="rule"><span class="n">02</span><p>Nhận nhiều hơn 2 sản phẩm thì phải đăng nhiều hơn 2 clip.</p></div>
-      <div class="rule"><span class="n">03</span><p>Ưu tiên dòng Chestnut và 2X Fresh Bam Balm to Foam.</p></div>
-      <div class="rule"><span class="n">04</span><p>Chọn creator hợp với hình ảnh brand, không gửi tràn lan.</p></div>
-    </div>
-  </div>
-  <div class="dd">
-    <div class="card do"><h3>Nên quay</h3><ul><li>Cận cảnh texture: balm tan thành dầu rồi lên bọt; serum 2 lớp đánh bọt.</li><li>Before / after vùng lỗ chân lông, cùng ánh sáng.</li><li>Nhắc hoạt chất đúng như Product Bible.</li><li>Routine thực tế; Retinal Cream luôn kèm "chỉ dùng buổi tối, sáng thoa SPF".</li></ul></div>
-    <div class="card dont"><h3>Tránh</h3><ul><li>So Volufiline™ với filler tiêm.</li><li>Lấy "% collagen" làm điểm chính cho Bubble Ampoule.</li><li>Bỏ mốc thời gian khỏi số liệu lâm sàng ("sau 1 lần dùng", "sau 4 tuần").</li><li>Hứa hẹn kiểu điều trị như "trị mụn", "hết mụn".</li></ul></div>
   </div>
 </section>
 
@@ -805,7 +777,7 @@ setTheme(document.documentElement.getAttribute("data-theme")==="dark"?"dark":"li
 document.getElementById("themeBtn").onclick=()=>setTheme(document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark");
 
 /* routing: switch views directly, hash is only a bookmark */
-const VIEWS=["overview","guide","products","glossary","claims","freecast","links","docs"];
+const VIEWS=["overview","guide","products","glossary","claims","links","docs"];
 function show(v,scroll){if(!VIEWS.includes(v))v="overview";
   VIEWS.forEach(x=>document.getElementById("v-"+x).hidden=x!==v);
   document.querySelectorAll("#tabbar a").forEach(a=>a.setAttribute("aria-current",a.getAttribute("href")==="#"+v?"page":"false"));
