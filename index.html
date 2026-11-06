@@ -242,6 +242,9 @@ main{padding-block:8px 80px}
 .dsec ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;font-size:14.5px}
 .tags{display:flex;flex-wrap:wrap;gap:6px}
 .tags span{font-size:12.5px;font-weight:600;padding:5px 11px;border-radius:999px;background:var(--t);color:var(--i)}
+.howto ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px;font-size:14.5px}
+.howto .tip{font-size:13.5px;background:var(--blush);border-radius:10px;padding:9px 12px}
+.dfacts a{color:var(--accent);text-decoration:none}
 .results{background:var(--ok-bg);color:var(--ok-ink);border-radius:14px;padding:14px 16px}
 .results ul{color:var(--ink)}
 .guard{background:var(--warn-bg);border-radius:14px;padding:14px 16px}
@@ -667,10 +670,37 @@ function rich(v){
   return lines.map(l=>`<p>${esc(l)}</p>`).join("");
 }
 const drawer=document.getElementById("drawer"),scrim=document.getElementById("scrim");
+/* staff extras per SKU: when to use, how to use, pairs well with */
+const EXTRA={
+ "PODL-CLN-01":{when:"Sáng & tối",use:["Lấy lượng bằng hạt đậu bằng thìa đi kèm, cho ra tay khô.","Massage lên mặt khô để balm tan, kéo makeup và kem chống nắng ra.","Thêm chút nước, tiếp tục massage cho lên bọt.","Rửa sạch bằng nước ấm. Không cần rửa mặt lần hai."],pair:["PODL-PO-02","PODL-PO-03"],tip:"Rửa bằng nước ấm sẽ sạch hơn. Makeup mắt đậm nên dùng thêm tẩy trang mắt riêng."},
+ "PODL-PAD-03":{when:"Sáng & tối",use:["Sau rửa mặt, lấy 1 miếng pad lau nhẹ toàn mặt.","Hoặc đắp pad lên vùng da khô, nóng hay đỏ như một mặt nạ ngắn.","Vỗ nhẹ phần tinh chất còn lại cho thấm."],pair:["PODL-CRM-05","PODL-MSK-09"],tip:"Pad mỏng, tinh chất hơi nhớt. Đóng nắp kỹ sau khi dùng."},
+ "PODL-TNR-04":{when:"Sáng & tối, xịt lại trong ngày",use:["Xịt đều lên mặt ở khoảng cách 20–30 cm, ngay sau bước rửa mặt.","Để tinh chất tự thấm.","Xịt lại trong ngày khi da thấy khô."],pair:["PODL-PAD-03","PODL-CRM-05"]},
+ "PODL-CRM-05":{when:"Sáng & tối",use:["Dùng ở bước cuối chu trình dưỡng (trước kem chống nắng buổi sáng).","Lấy lượng vừa đủ, thoa đều và vỗ nhẹ cho thấm."],pair:["PODL-MSK-10","PODL-TNR-04"]},
+ "PODL-SUN-06":{when:"Buổi sáng",use:["Bước cuối của chu trình buổi sáng.","Thoa đều lượng đủ lên mặt trước khi ra nắng.","Thoa lại khi ở ngoài trời lâu hoặc ra nhiều mồ hôi."],pair:["PODL-PO-05","PODL-CRM-05"],tip:"Bắt buộc dùng vào buổi sáng nếu tối hôm trước dùng Retinal Cream."},
+ "PODL-SRM-07":{when:"Sáng & tối",use:["Sau toner, bơm bọt ra tay.","Thoa đều lên mặt, vỗ nhẹ đến khi thấm.","Có thể dùng trước makeup để da căng bóng hơn."],pair:["PODL-MSK-08","PODL-TNR-04"]},
+ "PODL-MSK-08":{when:"2–3 lần/tuần",use:["Rửa mặt và dùng toner.","Đắp mảnh dưới ôm theo đường hàm, mảnh trên ôm vùng mắt và trán.","Để khoảng 30 phút rồi gỡ ra.","Vỗ nhẹ tinh chất còn lại cho thấm."],pair:["PODL-SRM-07","PODL-CRM-05"]},
+ "PODL-MSK-09":{when:"2–3 lần/tuần",use:["Rửa mặt và dùng toner.","Đắp mặt nạ lên mặt, chỉnh cho ôm sát.","Để 15–30 phút rồi gỡ ra.","Vỗ nhẹ tinh chất còn lại cho thấm."],pair:["PODL-PAD-03","PODL-TNR-04"]},
+ "PODL-MSK-10":{when:"2–3 lần/tuần",use:["Rửa mặt và dùng toner.","Đắp mặt nạ lên mặt, chỉnh cho ôm sát.","Để 15–30 phút rồi gỡ ra.","Vỗ nhẹ tinh chất còn lại cho thấm."],pair:["PODL-CRM-05"]},
+ "PODL-MSK-11":{when:"2–3 lần/tuần",use:["Rửa mặt và dùng toner.","Đắp mặt nạ lên mặt, chỉnh cho ôm sát.","Để 15–30 phút rồi gỡ ra.","Vỗ nhẹ tinh chất còn lại cho thấm."],pair:["PODL-SUN-06","PODL-SRM-07"]},
+ "PODL-MSK-12":{when:"Buổi sáng, khi mặt sưng hoặc trước makeup",use:["Rửa mặt và dùng toner.","Đắp mặt nạ hai mảnh theo hướng dẫn trên bao bì.","Để 15–30 phút rồi gỡ ra.","Vỗ nhẹ tinh chất còn lại rồi trang điểm."],pair:["PODL-PO-02","PODL-PO-03"]},
+ "PODL-PO-02":{when:"Buổi tối",use:["Sau rửa mặt, lấy 1 miếng pad.","Lau nhẹ theo chiều vân da, tập trung vùng mũi và cằm.","Không chà mạnh."],pair:["PODL-CLN-01","PODL-PO-03"]},
+ "PODL-PO-03":{when:"Buổi tối",use:["Dùng sau toner pad.","Lớp cream và lớp serum hoà thành bọt mịn khi lấy ra.","Thoa đều, tập trung vùng lỗ chân lông to như mũi, má."],pair:["PODL-PO-02","PODL-PO-05"]},
+ "PODL-PO-05":{when:"Chỉ buổi tối",use:["Bước cuối buổi tối.","Trộn đều gel và capsule trước khi thoa.","Thoa một lớp mỏng, tránh vùng mắt.","Sáng hôm sau luôn thoa kem chống nắng."],pair:["PODL-PO-03","PODL-SUN-06"],tip:"Nhạy cảm với ánh sáng. Tần suất dùng cho người mới bắt đầu retinal cần hỏi lại HQ trước khi tư vấn."}
+};
+/* fix sheet gaps */
+const FIX={"PODL-PAD-03":{ingr:"Chiết xuất lúa mạch xanh Jeju; 11X Hyaluronic Acid (HYAL-MICROSOME™); Nước băng tan từ sông băng Canada; Centella Asiatica"}};
+const SHOPEE="https://shopee.vn/shop/1693898998";
+function techFor(p){return PB.gloss.filter(g=>{const low=g[3].toLowerCase();return KW.some(([re,s])=>s===p.sku&&new RegExp(re).test(low))}).map(g=>g[0].replace(/\s*\(.*$/,"").trim())}
 function openDrawer(sku){const p=PRODUCTS.find(x=>x.sku===sku);if(!p)return;
   const cat=field(p,/^Category/i),tex=field(p,/^Texture/i),size=field(p,/^Dung tích/i),price=money(field(p,/^Giá/i)),skin=field(p,/^Loại da/i);
-  const ingr=field(p,/^Thành phần chủ đạo/i),tags=field(p,/^Hashtag/i),point=field(p,/^Nội dung định vị/i),prob=field(p,/^Vấn đề/i),
+  const ingr=(FIX[p.sku]&&FIX[p.sku].ingr)||field(p,/^Thành phần chủ đạo/i),tags=field(p,/^Hashtag/i),point=field(p,/^Nội dung định vị/i),prob=field(p,/^Vấn đề/i),
         claim=field(p,/^Chứng nhận/i),res=field(p,/^Kết quả lâm sàng/i),guard=field(p,/^Ghi chú nội bộ/i);
+  let resV=res; if(res&&guard&&res.trim()===guard.trim()) resV="";
+  const X=EXTRA[p.sku]||{}; const tech=techFor(p);
+  const useHtml=X.use?`<div class="dsec howto"><h4>Cách dùng</h4><ol>${X.use.map(s=>`<li>${esc(s)}</li>`).join("")}</ol>${X.tip?`<p class="tip">${esc(X.tip)}</p>`:""}<p class="src">Tham khảo, đối chiếu lại với hướng dẫn trên bao bì.</p></div>`:"";
+  const techHtml=tech.length?`<div class="dsec"><h4>Công nghệ &amp; thành phần đặc trưng</h4><div class="plinks">${tech.map(t=>`<button class="plink" type="button" data-term="${esc(t)}">${esc(t)} →</button>`).join("")}</div></div>`:"";
+  const pairHtml=X.pair?`<div class="dsec"><h4>Dùng cùng</h4><div class="plinks">${X.pair.map(s=>`<button class="plink" type="button" data-sku="${s}">${esc(pname(s))}</button>`).join("")}</div></div>`:"";
+  const note=(PB.catalog[p.sku]||{}).note||"";
   const fact=(k,v,w)=>v?`<div${w?' class="wide"':""}><dt>${k}</dt><dd>${isPending(v)?'<span class="pending">Đang chờ</span>':esc(v)}</dd></div>`:"";
   const sec=(h,v,cls)=>v?`<div class="dsec${cls?" "+cls:""}"><h4>${h}</h4>${rich(v)}</div>`:"";
   const ingrHtml=ingr&&!isPending(ingr)?`<div class="dsec"><h4>Thành phần chủ đạo</h4><div class="tags">${ingr.split(/;\s*/).filter(Boolean).map(x=>`<span>${esc(x.trim())}</span>`).join("")}</div></div>`:sec("Thành phần chủ đạo",ingr);
@@ -678,16 +708,21 @@ function openDrawer(sku){const p=PRODUCTS.find(x=>x.sku===sku);if(!p)return;
   drawer.setAttribute("style",tone(p.tone));
   drawer.innerHTML=`<div class="dtop"><span class="eyebrow" style="color:var(--i)">${esc(p.sku)} · ${esc(p.isNew?"Pore-Obsession":"Dòng hiện có")}</span><button class="close" type="button" id="closeBtn">Đóng</button></div>
    <div class="dhead"><div class="dtext"><h2>${esc(p.name)}</h2><p class="krname kr">${esc(field(p,/^Tên tiếng Hàn/i)||p.kr)}</p>${p.vn?`<p class="src" style="margin-top:6px">Tên bán tại VN: <b style="color:var(--ink)">${esc(p.vn)}</b></p>`:""}<p class="src" style="margin-top:6px">${esc(p.role||p.step)}</p></div><div class="dthumb${hasPhoto(p)?" photo":""}">${art(p)}</div></div>
-   <dl class="dfacts">${fact("Category",cat,true)}${fact("Texture",tex,true)}${fact("Dung tích",size)}${fact("Giá bán lẻ (Hàn)",price)}${fact("Loại da phù hợp",skin,true)}</dl>
+   <dl class="dfacts">${fact("Category",cat,true)}${fact("Texture",tex,true)}${fact("Dung tích",size)}${fact("Thời điểm dùng",X.when)}${fact("Giá bán lẻ (Hàn)",price)}<div><dt>Giá tại VN</dt><dd><a href="${SHOPEE}" target="_blank" rel="noopener">Xem trên Shopee ↗</a></dd></div>${fact("Loại da phù hợp",skin,true)}</dl>
    ${ingrHtml}${tagHtml}
    ${sec('Nội dung định vị (Point)',point)}
    ${sec("Vấn đề của người tiêu dùng được giải quyết",prob)}
+   ${useHtml}${techHtml}${pairHtml}
+   ${note?sec("Ghi chú trải nghiệm thực tế",note):""}
    ${sec("Chứng nhận / Claim trên hồ sơ",claim)}
-   ${res?`<div class="dsec results"><h4 style="color:var(--ok-ink)">Kết quả lâm sàng / Hiệu quả</h4>${rich(res)}</div>`:""}
+   ${resV?`<div class="dsec results"><h4 style="color:var(--ok-ink)">Kết quả lâm sàng / Hiệu quả</h4>${rich(resV)}</div>`:""}
    ${guard?`<div class="dsec guard"><h4>Ghi chú nội bộ / Marketing guardrail</h4>${rich(guard)}</div>`:""}
    <p class="src">Nguồn: sheet 3. Product_Bible, [VI] PO:DL Overall File.</p>`;
   drawer.classList.add("on");scrim.classList.add("on");drawer.setAttribute("aria-hidden","false");drawer.scrollTop=0;
   document.getElementById("closeBtn").onclick=closeDrawer;document.getElementById("closeBtn").focus();}
+drawer.addEventListener("click",e=>{const s=e.target.closest(".plink[data-sku]");if(s){openDrawer(s.dataset.sku);return}
+  const t=e.target.closest(".plink[data-term]");if(t){go("glossary");gcat="all";[...document.getElementById("catFilters").children].forEach((x,i)=>x.setAttribute("aria-pressed",i===0?"true":"false"));
+  document.getElementById("glossSearch").value=t.dataset.term;renderGloss();}});
 function closeDrawer(){drawer.classList.remove("on");scrim.classList.remove("on");drawer.setAttribute("aria-hidden","true")}
 scrim.onclick=closeDrawer;document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer()});
 
