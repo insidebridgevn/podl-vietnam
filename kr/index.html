@@ -304,6 +304,17 @@ main{padding-block:8px 80px}
 .ch.feat .hd{color:var(--accent-ink);opacity:.85}
 .ch.feat .go{background:var(--accent-ink);color:var(--accent)}
 #docs{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.celebs{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+.celeb{display:flex;flex-direction:column;gap:12px;text-decoration:none;color:var(--ink);min-width:0}
+.celeb .vid{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:var(--r-md);overflow:hidden;background:linear-gradient(135deg,var(--t-chestnut),var(--blush));display:grid;place-items:center;transition:transform .25s}
+.celeb:hover .vid{transform:translateY(-4px)}
+.celeb .vid img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.celeb .vid .ph{font-family:var(--f-display);font-weight:800;font-size:22px;letter-spacing:-.02em;color:var(--i-chestnut);padding:0 56px;text-align:center;line-height:1.15}
+.celeb .play{position:absolute;right:12px;bottom:12px;width:40px;height:40px;border-radius:50%;background:rgba(20,12,8,.72);display:grid;place-items:center;z-index:2}
+.celeb .meta{display:flex;flex-direction:column;gap:2px;padding-inline:4px}
+.celeb .grp{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.celeb h3{font-family:var(--f-body);font-size:16px;font-weight:700;line-height:1.3}
+.celeb .yt{font-size:13px;color:var(--muted)}
 .grouptitle{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
 
 footer{border-top:1px solid var(--line);color:var(--muted);font-size:13px}
@@ -358,6 +369,7 @@ footer .wordmark img{height:16px}
       <a href="#overview">Thương hiệu</a>
       <a href="#guide">Cần biết</a>
       <a href="#products">Sản phẩm</a>
+      <a href="#celebs">Celeb</a>
       <a href="#glossary">Thuật ngữ</a>
       <a href="#claims">Claims</a>
       <a href="#links">Kênh</a>
@@ -516,6 +528,21 @@ footer .wordmark img{height:16px}
     <p class="count" id="prodCount"></p>
   </div>
   <div id="shelfWrap" class="view" style="gap:44px"></div>
+</section>
+
+<!-- CELEBS -->
+<section class="view" id="v-celebs" hidden>
+  <div class="block">
+    <div class="sec-head"><span class="eyebrow">Celeb &amp; KOL</span><h2>Người nổi tiếng đã dùng PO:DL</h2><p>Các nghệ sĩ và KOL Hàn Quốc đã dùng hoặc giới thiệu PO:DL. Bấm vào để xem video trên YouTube.</p></div>
+  </div>
+  <div class="block">
+    <p class="grouptitle">Nghệ sĩ Hàn Quốc</p>
+    <div class="celebs" id="celebsMain"></div>
+  </div>
+  <div class="block">
+    <p class="grouptitle">KOL từ Địa ngục độc thân (Single's Inferno)</p>
+    <div class="celebs" id="celebsKol"></div>
+  </div>
 </section>
 
 <!-- GLOSSARY -->
@@ -775,7 +802,7 @@ const t=k=>UI[LANG][k];
 /* ---------- static page text (Korean) ---------- */
 const STATIC_KO={
 "Mục":"메뉴","Chuyển chế độ tối":"다크 모드로 전환",
-"Thương hiệu":"브랜드","Cần biết":"필수 정보","Sản phẩm":"제품","Thuật ngữ":"용어집","Claims":"클레임","Kênh":"채널","Tài liệu":"자료",
+"Thương hiệu":"브랜드","Celeb":"셀럽","Cần biết":"필수 정보","Sản phẩm":"제품","Thuật ngữ":"용어집","Claims":"클레임","Kênh":"채널","Tài liệu":"자료",
 "Chăm lỗ chân lông":"모공 케어,","hiệu quả mà không rát da.":"자극 없이 확실하게.",
 "PO:DL cho rằng phần lớn vấn đề da mình nhìn thấy, như lỗ chân lông to, da sần, xỉn màu hay nếp nhăn, đều bắt đầu từ lỗ chân lông. Vì vậy sản phẩm xử lý từ gốc: lượng dầu, độ giãn và tốc độ thay da của lỗ chân lông.":"PO:DL은 넓은 모공, 거친 피부결, 칙칙함, 주름처럼 눈에 보이는 피부 고민 대부분이 모공에서 시작된다고 봅니다. 그래서 피지, 모공 늘어짐, 턴오버 속도까지 모공의 근본부터 케어합니다.",
 "0,00% kích ứng (thử nghiệm trên người)":"자극 0.00% (인체적용시험)",
@@ -821,6 +848,9 @@ const STATIC_KO={
 "Routine gợi ý":"추천 루틴","Thứ tự dùng tham khảo khi tư vấn. Retinal Cream chỉ dùng buổi tối, sáng hôm sau luôn thoa kem chống nắng.":"상담 시 참고할 사용 순서입니다. Retinal Cream은 저녁에만 사용하고, 다음 날 아침에는 반드시 선크림을 바릅니다.",
 "Buổi sáng":"아침","Buổi tối":"저녁","Mặt nạ hydrogel dùng sau bước toner, thay cho bước dưỡng hôm đó.":"하이드로겔 마스크는 토너 다음에, 그날의 에센스·세럼 단계 대신 사용합니다.",
 "Câu hỏi khách hay hỏi":"자주 묻는 질문","Tài liệu nội bộ":"내부 자료",
+"Người nổi tiếng đã dùng PO:DL":"PO:DL을 사용한 셀럽",
+"Các nghệ sĩ và KOL Hàn Quốc đã dùng hoặc giới thiệu PO:DL. Bấm vào để xem video trên YouTube.":"PO:DL을 사용하거나 소개한 한국 아티스트와 인플루언서입니다. 누르면 유튜브 영상을 볼 수 있습니다.",
+"Nghệ sĩ Hàn Quốc":"한국 아티스트","KOL từ Địa ngục độc thân (Single's Inferno)":"솔로지옥 출연 인플루언서",
 "File và thư mục gốc của brand. Cần đăng nhập Google bằng tài khoản có quyền xem Drive của công ty.":"브랜드 원본 파일과 폴더입니다. 회사 드라이브 권한이 있는 구글 계정으로 로그인해야 합니다.",
 "14 sản phẩm đang bán ở VN. Bấm vào từng sản phẩm để xem đầy đủ thông tin trong Product Bible.":"베트남 판매 제품 14종. 제품을 누르면 Product Bible 전체 정보를 볼 수 있습니다.",
 "Lọc theo dòng":"라인별 필터","Tìm: retinal, PHA, mask…":"검색: retinal, PHA, mask…","Tìm sản phẩm":"제품 검색",
@@ -834,7 +864,7 @@ const STATIC_KO={
 "Website chính thức tại Hàn":"한국 공식 웹사이트","Sản phẩm và review tại Hàn":"한국 제품 정보 및 리뷰",
 "Tài liệu nội bộ Inside Bridge VN · By":"Inside Bridge VN 내부 자료 · By","· Vui lòng không sao chép hoặc chia sẻ ra bên ngoài":"· 외부 복사 및 공유를 금합니다"
 };
-const DYN="#shelfWrap,#gloss,#claimsGrid,#guards,#concerns,#rtAM,#rtPM,#faq,#docs,#system,#drawer,#lineFilters,#catFilters,#prodCount,#glossCount,#themeBtn,#langBtn,script,style";
+const DYN="#celebsMain,#celebsKol,#shelfWrap,#gloss,#claimsGrid,#guards,#concerns,#rtAM,#rtPM,#faq,#docs,#system,#drawer,#lineFilters,#catFilters,#prodCount,#glossCount,#themeBtn,#langBtn,script,style";
 let SNODES=null,SATTR=null;
 function collectStatic(){SNODES=[];SATTR=[];
   const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;
@@ -1113,6 +1143,29 @@ document.getElementById("copyPitch").addEventListener("click",e=>{const tx=docum
   try{navigator.clipboard.writeText(tx).then(done,()=>{selectText()})}catch(err){selectText()}
   function selectText(){const r=document.createRange();r.selectNodeContents(document.getElementById("pitchText"));const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent=t("selected")}});
 
+/* celebs */
+const CELEBS=[
+ ["main","T-ara","티아라","Jiyeon","지연","BjPqbTuZFH4"],
+ ["main",["Diễn viên","Actress"],"배우","So Yi-hyun","소이현","Ill_n5hh6t8"],
+ ["main","SISTAR","씨스타","Soyou","소유","tM3N0ZeoL-U"],
+ ["main","fromis_9","프로미스나인","Song Ha-young & Lee Na-kyung","송하영 & 이나경","9SRdKfrg16Q"],
+ ["main","Red Velvet","레드벨벳","Wendy","웬디","JWEk-rbRyaM"],
+ ["main","Girl's Day","걸스데이","Yura","유라","8BXT9KPUJZo"],
+ ["main","GFRIEND","여자친구","Yuju","유주","XrCt-T4r8Xo"],
+ ["main","I.O.I","아이오아이","Nayoung","나영","r87ae13ygsU"],
+ ["main","2AM","2AM","Jo Kwon","조권","dM4w0o4oMZQ"],
+ ["kol",["Địa ngục độc thân","Single's Inferno"],"솔로지옥","Hajeong","하정","5pmv6Y6CZoE"],
+ ["kol",["Địa ngục độc thân","Single's Inferno"],"솔로지옥","Yoo Si-eun","유시은","yMCcZ3E97Wo"]
+];
+const PLAY='<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>';
+function renderCelebs(){
+  const card=c=>{const grp=K()?c[2]:(Array.isArray(c[1])?c[1][0]:c[1]),name=K()?c[4]:c[3];
+    return `<a class="celeb" href="https://www.youtube.com/watch?v=${c[5]}" target="_blank" rel="noopener">
+    <div class="vid"><span class="ph">${esc(name)}</span><img src="https://i.ytimg.com/vi/${c[5]}/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="play">${PLAY}</span></div>
+    <div class="meta"><span class="grp">${esc(grp)}</span><h3>${esc(name)}</h3><span class="yt">${K()?"유튜브에서 보기 ↗":"Xem trên YouTube ↗"}</span></div></a>`};
+  document.getElementById("celebsMain").innerHTML=CELEBS.filter(c=>c[0]==="main").map(card).join("");
+  document.getElementById("celebsKol").innerHTML=CELEBS.filter(c=>c[0]==="kol").map(card).join("");}
+
 /* theme */
 const SUN='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
 const MOON='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>';
@@ -1121,7 +1174,7 @@ function setTheme(th){document.documentElement.setAttribute("data-theme",th);try
 document.getElementById("themeBtn").onclick=()=>setTheme(document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark");
 
 /* language */
-function renderAll(){applyStatic();renderSystem();renderLineChips();renderShelf();renderCatChips();renderGloss();renderClaims();renderGuide();
+function renderAll(){applyStatic();renderSystem();renderLineChips();renderShelf();renderCatChips();renderGloss();renderClaims();renderGuide();renderCelebs();
   setTheme(document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light");
   document.querySelectorAll("#langBtn [data-l]").forEach(s=>s.classList.toggle("on",s.dataset.l===LANG));
   document.getElementById("langBtn").setAttribute("aria-label",K()?"Tiếng Việt로 보기":"Xem bằng tiếng Hàn");
@@ -1132,7 +1185,7 @@ function setLang(l){try{localStorage.setItem("podl-lang",l)}catch(e){}
 document.getElementById("langBtn").onclick=()=>setLang(K()?"vi":"ko");
 
 /* routing: switch views directly, hash is only a bookmark */
-const VIEWS=["overview","guide","products","glossary","claims","links","docs"];
+const VIEWS=["overview","guide","products","celebs","glossary","claims","links","docs"];
 function show(v,scroll){if(!VIEWS.includes(v))v="overview";
   VIEWS.forEach(x=>document.getElementById("v-"+x).hidden=x!==v);
   document.querySelectorAll("#tabbar a").forEach(a=>a.setAttribute("aria-current",a.getAttribute("href")==="#"+v?"page":"false"));
